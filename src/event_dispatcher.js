@@ -225,8 +225,6 @@ Listener = (function() {
         }
     };
     this.dispatcher = undefined;
-    this.init = function() {};
-    this.shutdown = function() {};
     this.mapping = function() {
         throw('Return list of "{event: callback}" or "{event: [callback, priority]}" mappings');
     };
