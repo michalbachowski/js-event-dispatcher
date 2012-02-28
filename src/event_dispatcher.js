@@ -37,7 +37,7 @@ EventDispatcher = function() {
                 priority = 100;
             }
             if (!(name in listeners)) {
-                listeners[name] = new PriorityQueue();
+                listeners[name] = new PriorityQueue({low: true});
             }
             listeners[name].push(listener, priority);
             return self;
