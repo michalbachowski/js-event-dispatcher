@@ -15,7 +15,7 @@ EventDispatcher = function() {
      */
     var iterate = function(event, callback) {
         if (!(event.name() in listeners)) {
-            return;
+            return event;
         }
         listeners[event.name()].each(callback);
         return event;
