@@ -1,4 +1,4 @@
-EventDispatcher = (function() {
+EventDispatcher = function() {
     /**
      * @private
      */
@@ -14,7 +14,7 @@ EventDispatcher = (function() {
      * @return Event
      */
     var iterate = function(event, callback) {
-        if (!event.name() in listeners) {
+        if (!(event.name() in listeners)) {
             return;
         }
         listeners[event.name()].each(callback);
@@ -92,10 +92,10 @@ EventDispatcher = (function() {
         }
     };
     return self;
-})();
+};
 
 Event = function(subject, name, parameters) {
-    var args = parameter || {};
+    var args = parameters || {};
 
     var value;
     var processed = false;
@@ -203,10 +203,11 @@ Event = function(subject, name, parameters) {
     return self;
 };
 
-Listener = (function() {
+Listener = function() {
     var self = this;
+    this.dispatcher = undefined;
 
-    this.reqister = function(dispatcher) {
+    this.register = function(dispatcher) {
         self.dispatcher = dispatcher;
         var idx;
         var mappings = self.mapping();
@@ -224,9 +225,7 @@ Listener = (function() {
             dispatcher.connect(idx, callback, priority);
         }
     };
-    this.dispatcher = undefined;
     this.mapping = function() {
         throw('Return list of "{event: callback}" or "{event: [callback, priority]}" mappings');
     };
-    return self;
-})();
+};
