@@ -200,7 +200,7 @@ var EventDispatcherFactory = function (PriorityQueue) {
                     if (args.hasOwnProperty(key)) {
                         return args[key];
                     }
-                    return undefined;
+                    return void 0;
                 }
             };
 
