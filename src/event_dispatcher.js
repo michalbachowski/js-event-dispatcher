@@ -220,7 +220,7 @@ var EventDispatcherFactory = function (PriorityQueue) {
                 priority;
 
             for(idx in self.mapping()) {
-                priority = 100;
+                priority = 400;
                 if (typeof (mappings[idx]) === "function") {
                     callback = mappings[idx];
                 } else if (2 === mappings[idx].length) {
