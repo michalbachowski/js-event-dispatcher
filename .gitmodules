@@ -1,3 +1,3 @@
 [submodule "vendors/priority_queue"]
 	path = vendors/priority_queue
-	url = git@github.com:michalbachowski/PriorityQueue.js.git
+	url = git://github.com/michalbachowski/PriorityQueue.js.git
