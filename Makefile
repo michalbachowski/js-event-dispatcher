@@ -12,7 +12,7 @@ clean:
 	rm -rf build
 
 test:
-	./node_modules/mocha/bin/mocha \
+	./node_modules/.bin/mocha \
 		--reporter $(REPORTER) \
 		-u bdd test/event_dispatcher.js
 
