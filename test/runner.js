@@ -17,7 +17,7 @@ require(['node_modules/chai/chai', 'node_modules/mocha/mocha'], function (chai) 
   mocha.setup('bdd');
   
   // Require base tests before starting
-  require(['test/main'], function (main) {
+  require(['test/main', 'test/dispatcher', 'test/event', 'test/listener'], function (main, dispatcher, event, listener) {
     // Start runner
     mocha.run();
   });

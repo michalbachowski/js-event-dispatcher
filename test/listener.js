@@ -1,14 +1,14 @@
 /*global: node */
 if (typeof define !== 'function') { var define = require('amdefine')(module) }
 
-define(['../src/dispatcher', '../node_modules/chai/chai'], function (EventDispatcher, chai) {
+define(['../src/listener', '../node_modules/chai/chai'], function (Listener, chai) {
     var assert = chai.assert;
 
-    describe('EventDispatcher', function () {
-        var ed;
+    describe('Listener', function () {
+        var l;
         
         beforeEach(function () {
-            ed = EventDispatcher();
+            l = Listener();
         });
 
         describe('', function () {

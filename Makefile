@@ -14,6 +14,10 @@ clean:
 test:
 	./node_modules/.bin/mocha \
 		--reporter $(REPORTER) \
-		-u bdd test/event_dispatcher.js
+		-u bdd \
+		test/dispatcher.js \
+		test/event.js \
+		test/listener.js \
+		test/main.js
 
 .PHONY: all build clean test
