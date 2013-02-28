@@ -1,0 +1,6 @@
+{
+    "name": "event-dispatcher",
+    "version": "0.1.0",
+    "main": "./build/event-dispatcher.js",
+    "dependencies": {}
+}
