@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "author": "Michał Bachowski <michal@bachowski.pl>",
     "description": "The Symfony Event Dispatcher Component ported to JS",
-    "main": "./src/event_dispatcher.js",
+    "main": "./src/main.js",
     "repository": {
         "type": "git",
         "url": "git://github.com/michalbachowski/js-event-dispatcher.git"

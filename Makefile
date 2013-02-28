@@ -4,7 +4,7 @@ all: clean build test
 
 build:
 	node node_modules/requirejs/bin/r.js \
-		-o name=src/event_dispatcher \
+		-o name=src/main \
 		out=build/event_dispatcher.js \
 		baseUrl=.
 
