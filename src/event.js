@@ -1,12 +1,11 @@
-/*global: node */
-"use strict";
+/*globals: node*/
 if (typeof define !== 'function') {
     var define = require('amdefine')(module);
 }
 
-define(['require'], function(require) {
+define(['require'], function (require) {
+    "use strict";
     return function (subject, name, parameters) {
-        "use strict";
         var args = parameters || {},
             value,
             processed = false,
