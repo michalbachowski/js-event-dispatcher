@@ -9,6 +9,7 @@ define(['require'], function (require) {
         var args = parameters || {},
             value,
             processed = false,
+            propagate = true,
 
             self = {
                 /**
@@ -51,6 +52,38 @@ define(['require'], function (require) {
                  */
                 getReturnValue: function () {
                     return value;
+                },
+                
+                /**
+                 * Checks whether event can be propagated
+                 *
+                 * @member Event
+                 * @return boolean
+                 */
+                isPropagationStopped: function () {
+                    return !propagate;
+                },
+
+                /**
+                 * Disallows further event propagation
+                 *
+                 * @member Event
+                 * @return Event
+                 */
+                stopPropagation: function () {
+                    propagate = false;
+                    return self;
+                },
+
+                /**
+                 * Allows fusther event propagation 
+                 *
+                 * @member Event
+                 * @return Event
+                 */
+                startPropagation: function () {
+                    propagate = true;
+                    return self;
                 },
 
                 /**

@@ -108,6 +108,60 @@ define(['../src/event', '../node_modules/chai/chai'], function (Event, chai) {
                 });
             });
         });
+        
+        describe('isPropagationStopped', function () {
+            it('by default should return false', function () {
+                assert.isFalse(Event().isPropagationStopped());
+            });
+            describe('when stopPropagation was called', function () {
+                it('should return true', function () {
+                    assert.isTrue(Event().stopPropagation().isPropagationStopped());
+                });
+            });
+            describe('when startPropagation was called', function () {
+                it('should return false', function () {
+                    assert.isFalse(Event().startPropagation().isPropagationStopped());
+                });
+            });
+            describe('when event propagation state is changed', function () {
+                it('should return current process state', function () {
+                    assert.isTrue(Event().stopPropagation().startPropagation().stopPropagation().isPropagationStopped());
+                    assert.isFalse(Event().stopPropagation().startPropagation().isPropagationStopped());
+                });
+            });
+        });
+
+        describe('stopPropagation', function () {
+            describe('when called', function () {
+                it('should disallow event propagation', function () {
+                    e = Event();
+                    assert.isFalse(e.isPropagationStopped());
+                    e.stopPropagation();
+                    assert.isTrue(e.isPropagationStopped());
+                });
+                it('should return event instance', function () {
+                    e = Event();
+                    assert.strictEqual(e.stopPropagation(), e);
+                });
+            });
+        });
+
+        describe('startPropagation', function () {
+            describe('when called', function () {
+                it('should allow event propagation', function () {
+                    e = Event();
+                    assert.isFalse(e.isPropagationStopped());
+                    e.stopPropagation();
+                    assert.isTrue(e.isPropagationStopped());
+                    e.startPropagation();
+                    assert.isFalse(e.isPropagationStopped());
+                });
+                it('should return event instance', function () {
+                    e = Event();
+                    assert.strictEqual(e.startPropagation(), e);
+                });
+            });
+        });
 
         describe('isProcessed', function () {
             it('by default should return false', function () {
