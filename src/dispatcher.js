@@ -5,27 +5,13 @@ if (typeof define !== 'function') {
 }
 
 define(['require', 'priority-queue'], function(require, PriorityQueue) {
-    return function () {
+    return function (factory) {
         /**
          * @private
          */
         var listeners = {},
-
-            /**
-             * Iterates throught listeners and for each listener executes given callback
-             *
-             * @private
-             * @member EventDispatcher
-             * @param  Event event to be called
-             * @param  function callback
-             * @return Event
-             */
-            iterate = function (event, callback) {
-                if (!listeners.hasOwnProperty(event.name())) {
-                    return event;
-                }
-                listeners[event.name()].each(callback);
-                return event;
+            create_queue = factory || function () {
+                return new PriorityQueue({low: true});
             },
 
             self = {
@@ -44,59 +30,45 @@ define(['require', 'priority-queue'], function(require, PriorityQueue) {
                         priority = 100;
                     }
                     if (!listeners.hasOwnProperty(name)) {
-                        listeners[name] = new PriorityQueue({low: true});
+                        listeners[name] = create_queue();
                     }
                     listeners[name].push(listener, priority);
                     return self;
                 },
 
                 /**
-                 * Notifies all listeners connected to given event
+                 * Notifies listeners connected to given event until event is allowed to be propagated.
                  *
                  * @member EventDispatcher
                  * @param  Event event
                  * @return Event
                  */
-                notify: function (event) {
-                    return iterate(event, function (listener) {
+                notify: function (name, event) {
+                    event.markUnprocessed().startPropagation().setDispatcher(self).setName(name);
+                    return self.iterate(event, function (listener) {
+                        if (event.isPropagationStopped()) {
+                            return;
+                        }
                         listener(event);
                     });
                 },
 
                 /**
-                * Notifies listeners connected to given event until one of listeners returns "true".
-                * When listener returns "true" event is marked as processed
-                *
-                * @member EventDispatcher
-                * @param  Event event
-                * @return Event
-                */
-                notifyUntil: function (event) {
-                    event.markUnprocessed();
-                    return iterate(event, function (listener) {
-                        if (event.isProcessed()) {
-                            return;
-                        }
-                        if (listener(event)) {
-                            event.markProcessed();
-                        }
-                    });
-                },
-
-                /**
-                 * Filter given value using given event
+                 * Iterates throught listeners and for each listener executes given callback
                  *
+                 * @private
                  * @member EventDispatcher
-                 * @param  Event event
-                 * @param  mixed value to filter
+                 * @param  Event event to be called
+                 * @param  function callback
                  * @return Event
                  */
-                filter: function (event, value) {
-                    iterate(event, function (listener) {
-                        value = listener(event, value);
-                    });
-                    return event.setReturnValue(value);
-                }
+                iterate: function (name, event, callback) {
+                    if (!listeners.hasOwnProperty(name)) {
+                        return event;
+                    }
+                    listeners[name].each(callback);
+                    return event;
+                },
             };
         return self;
     };
