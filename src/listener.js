@@ -12,26 +12,30 @@ define(['require'], function(require, PriorityQueue) {
 
         this.register = function (dispatcher) {
             self.dispatcher = dispatcher;
-            var idx,
-                mappings = self.mapping(),
+            var mapping,
+                name,
                 callback,
                 priority;
 
-            for(idx in self.mapping()) {
-                priority = 400;
-                if (typeof (mappings[idx]) === "function") {
-                    callback = mappings[idx];
-                } else if (2 === mappings[idx].length) {
-                    callback = mappings[idx][0];
-                    priority = mappings[idx][1];
+            for(mapping in self.mapping()) {
+                if (3 === mapping.length) {
+                    priority = mapping[2];
                 } else {
-                    throw ('Unknown mapping');
+                    priority = 400;
                 }
-                dispatcher.connect(idx, callback, priority);
+                dispatcher.connect(mapping[0], mapping[1], priority);
             }
         };
+
         this.mapping = function () {
-            throw ('Return list of "{event: callback}" or "{event: [callback, priority]}" mappings');
+            throw ('Listener.mapping is not implemented');
+            // Return list of event mappings: [[event, callback, priority], ...] or [[event, callback], ...] (default priority will be used)')
+            /**
+            return [
+                ['foo', self.fooHandler],
+                ['bar', self.barHandler]
+            ];
+            //*/
         };
     };
 });
