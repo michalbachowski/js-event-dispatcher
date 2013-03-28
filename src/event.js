@@ -5,32 +5,69 @@ if (typeof define !== 'function') {
 
 define(['require'], function (require) {
     "use strict";
-    return function (subject, name, parameters) {
+    return function (subject, parameters) {
         var args = parameters || {},
             value,
+            name = void 0,
+            dispatcher = void 0,
             processed = false,
             propagate = true,
 
             self = {
                 /**
-                 * Returns subject object
-                 * 
+                 * Gets event subject (context)
+                 *
                  * @member Event
                  * @return object
                  */
-                subject: function () {
+                getSubject: function () {
                     return subject;
                 },
 
+
+                /**
+                 * Sets reference to event dispatcher
+                 *
+                 * @param  Dispatcher   event dispatcher
+                 * @member Event
+                 * @return Event
+                 */
+                setDispatcher: function (d) {
+                    dispatcher = d;
+                    return self;
+                },
+                /**
+                 * Returns dispatcher object
+                 * 
+                 * @member Event
+                 * @return Dispatcher
+                 */
+                getDispatcher: function () {
+                    return dispatcher;
+                },
+
+
+                /**
+                 * Sets event name
+                 *
+                 * @param  string    event name
+                 * @member Event
+                 * @return Event
+                 */
+                setName: function (n) {
+                    name = n;
+                    return self;
+                },
                 /**
                  * Returns event name
                  *
                  * @member Event
                  * @return string
                  */
-                name: function () {
+                getName: function () {
                     return name;
                 },
+
 
                 /**
                  * Sets return value for event
@@ -43,7 +80,6 @@ define(['require'], function (require) {
                     value = val;
                     return self;
                 },
-
                 /**
                  * Fetches event`s return value
                  *
@@ -53,7 +89,8 @@ define(['require'], function (require) {
                 getReturnValue: function () {
                     return value;
                 },
-                
+
+
                 /**
                  * Checks whether event can be propagated
                  *
@@ -63,7 +100,6 @@ define(['require'], function (require) {
                 isPropagationStopped: function () {
                     return !propagate;
                 },
-
                 /**
                  * Disallows further event propagation
                  *
@@ -74,7 +110,6 @@ define(['require'], function (require) {
                     propagate = false;
                     return self;
                 },
-
                 /**
                  * Allows fusther event propagation 
                  *
@@ -86,6 +121,7 @@ define(['require'], function (require) {
                     return self;
                 },
 
+
                 /**
                  * Checks whether event has been processed
                  *
@@ -95,7 +131,6 @@ define(['require'], function (require) {
                 isProcessed: function () {
                     return processed;
                 },
-
                 /**
                  * Marks event as processed
                  *
@@ -106,7 +141,6 @@ define(['require'], function (require) {
                     processed = true;
                     return self;
                 },
-
                 /**
                  * Marks event as unprocessed
                  *
@@ -118,6 +152,7 @@ define(['require'], function (require) {
                     return self;
                 },
 
+
                 /**
                  * Fetches list of parameters
                  *
@@ -127,7 +162,6 @@ define(['require'], function (require) {
                 parameters: function () {
                     return args;
                 },
-
                 /**
                  * Fetches parameter with given name or undefined if parameter is not present
                  *

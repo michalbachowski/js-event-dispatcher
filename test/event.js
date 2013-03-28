@@ -11,38 +11,81 @@ define(['../src/event', '../node_modules/chai/chai'], function (Event, chai) {
             e = null;
         });
 
-        describe('subject', function () {
+        describe('getSubject', function () {
             describe('when no subject is given', function () {
                 it('should return undefined', function () {
-                    assert.isUndefined(Event().subject());
+                    assert.isUndefined(Event().getSubject());
                 });
             });
             
             describe('when subject is given', function () {
                 it('should return given subject', function () {
-                    assert.equal(Event('a').subject(), 'a');
-                    assert.deepEqual(Event({a: 1}).subject(), {a: 1});
-                    assert.isUndefined(Event(void 0).subject());
-                    assert.equal(Event('').subject(), '');
-                    assert.equal(Event(0).subject(), 0);
+                    assert.equal(Event('a').getSubject(), 'a');
+                    assert.deepEqual(Event({a: 1}).getSubject(), {a: 1});
+                    assert.isUndefined(Event(void 0).getSubject());
+                    assert.equal(Event('').getSubject(), '');
+                    assert.equal(Event(0).getSubject(), 0);
+                });
+            });
+        });
+        
+        describe('setDispatcher', function () {
+            it('returns instance of current event', function () {
+                e = Event()
+                assert.equal(e.setDispatcher(), e);
+            });
+            
+            it('sets reference to dispatcher instance', function () {
+                assert.equal(Event().setDispatcher('a').getDispatcher(), 'a');
+            });
+        });
+
+        describe('getDispatcher', function () {
+            describe('when no dispatcher is given', function () {
+                it('should return undefined', function () {
+                    assert.isUndefined(Event().getDispatcher());
+                });
+            });
+            
+            describe('when dispatcher was given', function () {
+                it('should return it', function () {
+                    assert.equal(Event().setDispatcher('a').getDispatcher(), 'a');
+                    assert.deepEqual(Event().setDispatcher({a: 1}).getDispatcher(), {a: 1});
+                    assert.isUndefined(Event().setDispatcher(void 0).getDispatcher());
+                    assert.equal(Event().setDispatcher('').getDispatcher(), '');
+                    assert.equal(Event().setDispatcher(0).getDispatcher(), 0);
                 });
             });
         });
 
-        describe('name', function () {
+        describe('setName', function () {
+            it('should return event instance', function () {
+                e = Event();
+                assert.equal(e.setName(), e);
+            });
+            
+            it('should set new event name', function () {
+                e = Event();
+                assert.isUndefined(e.getName());
+                assert.equal(e.setName('b').getName(), 'b');
+            });
+        });
+
+        describe('getName', function () {
             describe('when no name is given', function () {
                 it('should return undefined', function () {
-                    assert.isUndefined(Event().name());
+                    assert.isUndefined(Event().getName());
                 });
             });
             
             describe('when name is given', function () {
                 it('should return given name', function () {
-                    assert.equal(Event('a', 'b').name(), 'b');
-                    assert.deepEqual(Event({a: 1}, {b: 2}).name(), {b: 2});
-                    assert.isUndefined(Event(void 0, void 0).name());
-                    assert.equal(Event(void 0, '').name(), '');
-                    assert.equal(Event(void 0, 0).name(), 0);
+                    assert.equal(Event().setName('b').getName(), 'b');
+                    assert.deepEqual(Event().setName({b: 2}).getName(), {b: 2});
+                    assert.isUndefined(Event().setName(void 0).getName());
+                    assert.equal(Event().setName('').getName(), '');
+                    assert.equal(Event().setName(0).getName(), 0);
+                    assert.isNull(Event().setName(null).getName());
                 });
             });
         });
@@ -56,8 +99,8 @@ define(['../src/event', '../node_modules/chai/chai'], function (Event, chai) {
             
             describe('when parameters are given', function () {
                 it('should return given parameters', function () {
-                    assert.equal(Event('a', 'b', 'c').parameters(), 'c');
-                    assert.deepEqual(Event('a', 'b', {c: 1}).parameters(), {c: 1});
+                    assert.equal(Event('b', 'c').parameters(), 'c');
+                    assert.deepEqual(Event('b', {c: 1}).parameters(), {c: 1});
                 });
             });
             
@@ -80,31 +123,31 @@ define(['../src/event', '../node_modules/chai/chai'], function (Event, chai) {
                 describe('and parameters are given', function () {
                     describe('and are invalid', function () {
                         it('should return undefined', function () {
-                            assert.isUndefined(Event('a', 'b', 'c').parameter('a'));
-                            assert.isUndefined(Event('a', 'b', void 0).parameter('a'));
-                            assert.isUndefined(Event('a', 'b', {}).parameter('a'));
+                            assert.isUndefined(Event('b', 'c').parameter('a'));
+                            assert.isUndefined(Event('b', void 0).parameter('a'));
+                            assert.isUndefined(Event('b', {}).parameter('a'));
                         });
                     });
                     describe('and are valid', function () {
                         it('should return undefined', function () {
-                            assert.isUndefined(Event('a', 'b', {c: 1}).parameter());
+                            assert.isUndefined(Event('b', {c: 1}).parameter());
                         });
                     });
                 });
             });
             
-            describe('when invalid key and valie parameters are given', function () {
+            describe('when invalid key and valid parameters are given', function () {
                 it('should return undefined', function () {
-                    assert.isUndefined(Event('a', 'b', {c: 1}).parameter('a'));
-                    assert.isUndefined(Event('a', 'b', {c: 1}).parameter(''));
-                    assert.isUndefined(Event('a', 'b', {c: 1}).parameter(0));
-                    assert.isUndefined(Event('a', 'b', {c: 1}).parameter(void 0));
+                    assert.isUndefined(Event('b', {c: 1}).parameter('a'));
+                    assert.isUndefined(Event('b', {c: 1}).parameter(''));
+                    assert.isUndefined(Event('b', {c: 1}).parameter(0));
+                    assert.isUndefined(Event('b', {c: 1}).parameter(void 0));
                 });
             });
 
             describe('when valid key and parameters are given', function () {
                 it('should return given parameter value', function () {
-                    assert.equal(Event('a', 'b', {c: 1}).parameter('c'), 1);
+                    assert.equal(Event('b', {c: 1}).parameter('c'), 1);
                 });
             });
         });
