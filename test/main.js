@@ -5,12 +5,14 @@ define(['../src/main', '../node_modules/chai/chai'], function (main, chai) {
     var assert = chai.assert;
 
     describe('Main', function () {
-        describe('', function () {
-            describe('', function () {
-                it('', function () {
-                    assert.isTrue(false);
-                });
-            });
+        it('should contain event function', function () {
+            assert.isTrue(main.hasOwnProperty('event'));
+        });
+        it('should contain dispatcher function', function () {
+            assert.isTrue(main.hasOwnProperty('dispatcher'));
+        });
+        it('should contain listener class', function () {
+            assert.isTrue(main.hasOwnProperty('listener'));
         });
     });
 });
