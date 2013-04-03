@@ -1,7 +1,7 @@
 /*global: node */
 if (typeof define !== 'function') { var define = require('amdefine')(module) }
 
-define(['../src/dispatcher', '../src/event', '../node_modules/priority-queue/src/priority_queue.js', '../node_modules/chai/chai', '../node_modules/sinon/lib/sinon'], function (EventDispatcher, Event, PriorityQueue, chai, sinon) {
+define(['../src/dispatcher', '../src/event', '../node_modules/priority_queue/src/priority_queue.js', '../node_modules/chai/chai', '../node_modules/sinon/lib/sinon'], function (EventDispatcher, Event, PriorityQueue, chai, sinon) {
     var assert = chai.assert;
 
     describe('EventDispatcher', function () {

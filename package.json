@@ -15,7 +15,7 @@
     ],
     "dependencies": {
         "amdefine": "~0.0.4",
-        "priority-queue": "git://github.com/michalbachowski/PriorityQueue.js.git#v0.1.0"
+        "priority_queue": "git://github.com/michalbachowski/PriorityQueue.js.git"
     },
     "devDependencies": {
         "mocha": "~1.8.1",

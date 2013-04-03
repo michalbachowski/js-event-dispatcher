@@ -4,7 +4,7 @@ if (typeof define !== 'function') {
     var define = require('amdefine')(module);
 }
 
-define(['require', 'priority-queue'], function(require, PriorityQueue) {
+define(['require', 'priority_queue'], function(require, PriorityQueue) {
     return function (factory) {
         /**
          * @private
