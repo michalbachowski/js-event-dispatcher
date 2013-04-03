@@ -3,10 +3,7 @@ REPORTER ?= dot
 all: clean build test
 
 build:
-	node node_modules/requirejs/bin/r.js \
-		-o name=src/main \
-		out=build/event_dispatcher.js \
-		baseUrl=.
+	node node_modules/.bin/r.js -o src/app.build.js
 
 clean:
 	rm -rf build
