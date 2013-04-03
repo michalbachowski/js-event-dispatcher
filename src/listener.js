@@ -8,20 +8,16 @@ define(['require'], function(require, PriorityQueue) {
     return function () {
         "use strict";
         var self = this;
-        this.dispatcher = void 0;
 
         this.register = function (dispatcher) {
-            self.dispatcher = dispatcher;
             var mapping,
-                name,
-                callback,
                 priority;
 
             for(mapping in self.mapping()) {
                 if (3 === mapping.length) {
                     priority = mapping[2];
                 } else {
-                    priority = 400;
+                    priority = void 0;
                 }
                 dispatcher.connect(mapping[0], mapping[1], priority);
             }
