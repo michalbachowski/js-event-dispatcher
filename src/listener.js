@@ -4,7 +4,7 @@ if (typeof define !== 'function') {
     var define = require('amdefine')(module);
 }
 
-define(['require'], function(require, PriorityQueue) {
+define(['require'], function(require) {
     return function () {
         "use strict";
         var self = this;
