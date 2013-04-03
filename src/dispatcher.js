@@ -45,7 +45,7 @@ define(['require', 'priority-queue'], function(require, PriorityQueue) {
                  */
                 notify: function (name, event) {
                     event.markUnprocessed().startPropagation().setDispatcher(self).setName(name);
-                    return self.iterate(event, function (listener) {
+                    return self.iterate(name, event, function (listener) {
                         if (event.isPropagationStopped()) {
                             return;
                         }
